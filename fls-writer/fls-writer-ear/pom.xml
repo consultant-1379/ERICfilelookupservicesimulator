@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ericsson.oss.services.fls</groupId>
+        <artifactId>fls-writer</artifactId>
+        <version>1.16.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>fls-writer-ear</artifactId>
+    <packaging>ear</packaging>
+    <name>${project.artifactId} EAR Module</name>
+
+    <properties>
+        <jboss.home>${env.JBOSS_HOME}</jboss.home>
+    </properties>
+
+    <build>
+        <outputDirectory>target/${project.parent.artifactId}-${project.version}</outputDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <configuration>
+                    <filename>${project.artifactId}-${project.version}.ear</filename>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <version>${version.jee}</version>
+                    <workDirectory>target/${project.parent.artifactId}-${project.version}</workDirectory>
+                    <defaultLibBundleDir>${project.ear.defaultLibBundleDir}</defaultLibBundleDir>
+                    <description>${project.parent.artifactId} JEE6 service</description>
+                    <displayName>${project.parent.artifactId} JEE6 service</displayName>
+
+                    <archive>
+                        <manifestEntries>
+                            <Dependencies>${project.ear.Dependencies}</Dependencies>
+                        </manifestEntries>
+                    </archive>
+                    <modules>
+                        <ejbModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${project.parent.artifactId}-ejb</artifactId>
+                        </ejbModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.parent.artifactId}-jar</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.parent.artifactId}-ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.parent.artifactId}-config-jar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+
+        <profile>
+            <id>production_env</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <!-- All production-ready dependencies to Service Framework implementation
+                    modules should go here. These are LITP specific -->
+                <dependency>
+                    <groupId>com.ericsson.oss.itpf.sdk</groupId>
+                    <artifactId>service-framework-dist</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>deploy_ear_locally</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <configuration>
+                                    <target>
+                                        <delete>
+                                            <fileset dir="${jboss.home}/standalone/deployments" includes="${project.artifactId}-*-SNAPSHOT.ear" />
+                                        </delete>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>deploy-ear-resources</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${jboss.home}/standalone/deployments</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${basedir}/target/</directory>
+                                            <includes>
+                                                <include>${project.artifactId}-${project.version}.ear</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

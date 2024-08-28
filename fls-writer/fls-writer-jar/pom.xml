@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ericsson.oss.services.fls</groupId>
+        <artifactId>fls-writer</artifactId>
+        <version>1.16.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>fls-writer-jar</artifactId>
+    <packaging>jar</packaging>
+    <name>[${project.parent.artifactId}] JAR module</name>
+
+    <dependencies>
+        <!-- fls model -->
+         <!-- <dependency>
+            <groupId>com.ericsson.oss.itpf.datalayer</groupId>
+            <artifactId>fls-config-model-code</artifactId>
+            <version>${version.fls.model}</version>
+        </dependency> -->
+       <!-- <dependency>
+            <groupId>com.ericsson.oss.services.eniq.topologyservice.model</groupId>
+            <artifactId>eniq-topology-service-model-config-jar</artifactId>
+            <version>${version.eniq.topology.service.model}</version>
+        </dependency> -->
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>sdk-resources-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>sdk-recording-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+         <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>sdk-config-api</artifactId>
+            <scope>provided</scope>
+        </dependency> 
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>${project.parent.artifactId}-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

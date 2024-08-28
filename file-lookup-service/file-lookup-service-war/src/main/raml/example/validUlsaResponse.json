@@ -1,0 +1,13 @@
+{
+  "files": [
+    {
+      "id": 1449,
+      "dataType": "ULSA",
+      "radioUnit": "LI4003RRU1",
+      "rfPort": "A",
+      "fileLocation": "/ericsson/ul_spectrum_files/MeContext=lienb4003,ManagedElement=1,LI4003RRU1,A,20170308.152246257ULSA_SAMPLE",
+      "fileCreationTimeInOss": "2017-03-08T15:22:46+0100",
+      "sampleTime": "2017-03-08T15:22:46+0100"
+    }
+  ]
+}

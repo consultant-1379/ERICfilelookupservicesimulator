@@ -1,0 +1,1 @@
+DROP TABLE if EXISTS "pm_rop_info";

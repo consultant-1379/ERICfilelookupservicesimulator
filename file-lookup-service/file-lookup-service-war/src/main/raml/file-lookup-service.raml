@@ -1,0 +1,67 @@
+#%RAML 0.8
+title: File Lookup Service
+baseUri: http://customer-domain/file/{version}
+version: v1
+mediaType: application/hal+json
+protocols: [HTTP, HTTPS]
+schemas:
+ - PmFileMetaData: !include schema/PmFileMetaData.json
+ - UlsaFileMetaData: !include schema/UlsaFileMetaData.json
+
+/files:
+  get:
+    description: |
+      Returns the metadata about files stored in SFS.</br></br>
+      Example URL :
+      <pre>http://customer-domain/file/v1/files/?filter=dataType=="PM*"&select=id,nodeName&orderBy=fileCreationTimeInOss desc</pre>
+      <pre>http://customer-domain/file/v1/files/?filter=dataType=="ULSA"&select=id,nodeName&orderBy=fileCreationTimeInOss desc</pre>
+
+    queryParameters:
+      filter:
+        description: An array of filter clauses which will be use to build search criteria. dataType is mandatory filter.
+                     FLS supports advance filtering using The Feed Item Query Language(FIQL) and each filter clause should be provided as FIQL expression.
+        example: |
+          filter=dataType==PM_CTUM;nodeType==ERBS
+          filter=dataType==PM*;startRopTimeInOss=ge=2017-09-09T11:11:10+0000;endRopTimeInOss=le=2017-09-09T12:11:10+0000
+          filter=dataType==PM*;fileType=in=(xml,txt)
+          filter=dataType==ULSA
+          filter=dataType==ULSA;radioUnit==RadioUnitName
+          filter=dataType==ULSA;sampleTime=ge=2016-09-09T12:11:10+0000
+        type: string
+        required: true
+      select:
+        description: An array of field to select. If select clause is missing then the default fields will be shown in the query results.
+        example: select=id,nodeName
+        type: string
+      limit:
+        description: Service returns maximum 10000 results. This option can be used for limiting the result set to less than 10000
+        type: integer
+        default: 10000
+      offset:
+        description: This parameter supports pagination. Mandatory when limit is given.
+        type: integer
+      orderBy:
+        description: This parameter can be used to order the result sets in ascending or descending order based on fields. By default the result set of queries are ordered by id ascending.
+        type: string
+        example: orderBy=fileCreationTimeInOss desc,id asc
+    responses:
+      200:
+        body:
+          application/hal+json PM:
+            schema: PmFileMetaData
+            example: !include example/validPmResponse.json
+          application/hal+json ULSA:
+            schema: UlsaFileMetaData
+            example: !include example/validUlsaResponse.json
+
+      400:
+        description: Returned when query is incorrect
+        body:
+          application/hal+json:
+            example: !include example/400.json
+
+      403:
+        description: Returned when user is unauthorized to execute query
+        body:
+          application/hal+json:
+            example: !include example/403.json

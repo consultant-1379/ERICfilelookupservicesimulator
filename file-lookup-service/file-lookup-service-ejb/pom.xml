@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>file-lookup-service</artifactId>
+        <groupId>com.ericsson.oss.services.fls</groupId>
+        <version>1.6.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>file-lookup-service-ejb</artifactId>
+    <packaging>ejb</packaging>
+    <name>[${project.parent.artifactId}] EJB module</name>
+
+    <properties>
+        <version.hibernate>4.2.7.Final</version.hibernate>
+    </properties>
+
+    <build>
+        <!-- DO NOT DELETE RESOURCE FILTERING. FILTERING IS REQUIRED BY SERVICE
+          FRAMEWORK. YOU CAN EXCLUDE FILES YOU DO NOT WANT TO BE FILTERED. -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <version>${version.maven-ejb-plugin}</version>
+                <configuration>
+                    <ejbVersion>${version.ejb}</ejbVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <version>${version.jboss-as-maven-plugin}</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${version.maven.surefire}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>${version.maven.surefire}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <threadCount>1</threadCount>
+                    <useSystemClassLoader>true</useSystemClassLoader>
+                    <useManifestOnlyJar>false</useManifestOnlyJar>
+                    <useFile>false</useFile>
+                    <includes>
+                        <include>**/*Spec.java</include>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>cz.jirutka.rsql</groupId>
+            <artifactId>rsql-parser</artifactId>
+            <version>${version.rsql}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.services.fls</groupId>
+            <artifactId>fls-writer-db</artifactId>
+            <version>${version.fls.writer.libs}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.services.fls</groupId>
+            <artifactId>fls-writer-api</artifactId>
+            <version>${version.fls.writer.libs}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <artifactId>${project.parent.artifactId}-api</artifactId>
+            <groupId>com.ericsson.oss.services.fls</groupId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <artifactId>${project.parent.artifactId}-jar</artifactId>
+            <groupId>com.ericsson.oss.services.fls</groupId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

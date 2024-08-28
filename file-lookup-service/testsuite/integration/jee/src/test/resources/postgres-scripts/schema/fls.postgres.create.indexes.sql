@@ -1,0 +1,1 @@
+CREATE INDEX ix_pm_rop_info ON pm_rop_info(node_name,node_type,data_type,file_type,file_size,file_location,file_creationtime_in_oss,start_roptime_in_oss,end_roptime_in_oss);

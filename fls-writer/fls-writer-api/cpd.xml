@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd>
+   <duplication lines="35" tokens="100">
+      <codefragment><![CDATA[    }
+
+    public long getRopStartTime() {
+        return ropStartTime;
+    }
+
+    public void setRopStartTime(final long ropStartTime) {
+        this.ropStartTime = ropStartTime;
+    }
+
+    public long getRopPeriod() {
+        return ropPeriod;
+    }
+
+    public void setRopPeriod(final long ropPeriod) {
+        this.ropPeriod = ropPeriod;
+    }
+
+    public String getNeType() {
+        return neType;
+    }
+
+    public void setNeType(final String neType) {
+        this.neType = neType;
+    }
+
+    public String getOssModelIdentity() {
+        return ossModelIdentity;
+    }
+
+    public void setOssModelIdentity(final String ossModelIdentity) {
+        this.ossModelIdentity = ossModelIdentity;
+    }
+
+    public List<String> getSuccessDestinationFileNames() {]]></codefragment>
+   </duplication>
+</pmd-cpd>

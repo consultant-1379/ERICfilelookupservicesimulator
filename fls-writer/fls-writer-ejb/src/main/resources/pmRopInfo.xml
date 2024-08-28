@@ -1,0 +1,24 @@
+<beanio xmlns="http://www.beanio.org/2012/03"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03/mapping.xsd">
+
+    <stream name="data" format="delimited" strict="true" >
+        <parser>
+            <property name="delimiter" value="|" />
+        </parser>
+
+        <typeHandler type="java.util.Date" class="com.ericsson.oss.services.fls.handler.DateTypeHandler" />
+
+        <record name="pmropinfo" class="com.ericsson.oss.services.fls.db.entity.PMRopInfo" minOccurs="1" maxOccurs="unbounded" order="1">
+            <field name="nodeName"              required="true"/>
+            <field name="nodeType"              required="true"/>
+            <field name="dataType"              required="true"/>
+            <field name="fileType"              required="true"/>
+            <field name="fileSize"              required="true"/>
+            <field name="fileLocation"          required="true"/>
+            <field name="fileCreationTimeInOss" required="true"/>
+            <field name="startRopTimeInOss"     required="true"/>
+            <field name="endRopTimeInOss"       required="true"/>
+        </record>
+    </stream>
+</beanio>

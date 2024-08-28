@@ -1,0 +1,16 @@
+{
+  "files": [
+    {
+      "id": 1447,
+      "dataType": "PM_CTUM",
+      "fileLocation": "/ericsson/pmic2/CTUM/NetworkElement=SGSN-16A-CP01-V102/A20170331.0245+0100-20170331.0300+0100_1_ctum.39598",
+      "fileCreationTimeInOss": "2017-03-31T03:05:09+0100"
+    },
+    {
+      "id": 1448,
+      "dataType": "PM_STATISTICAL",
+      "fileLocation": "/ericsson/pmic1/XML/MeContext=RNC03/A20170331.0245+0100-0300+0100_MeContext=RNC03_statsfile.xml",
+      "fileCreationTimeInOss": "2017-03-31T03:05:09+0100"
+    }
+  ]
+}

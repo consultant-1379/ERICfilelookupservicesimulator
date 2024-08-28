@@ -1,0 +1,1 @@
+DROP INDEX if EXISTS "ix_pm_rop_info";

@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ericsson.oss.services.fls</groupId>
+        <artifactId>file-lookup-service</artifactId>
+        <version>1.6.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>file-lookup-service-testsuite</artifactId>
+    <packaging>pom</packaging>
+    <name>[${project.parent.artifactId}] TestSuite</name>
+
+    <modules>
+        <module>integration</module>
+    </modules>
+
+    <properties>
+        <!-- Properties for Arquillian Tests -->
+        <project.documentation.url>#</project.documentation.url>
+        <jboss.eap.home>jboss-eap</jboss.eap.home>
+        <version.jboss.as>6.4.5</version.jboss.as>
+        <!-- Client and JSON -->
+        <version.httpclient>4.5.1</version.httpclient>
+        <version.httpcore>4.4.4</version.httpcore>
+        <version.commons.io>2.4</version.commons.io>
+        <version.jackson.mapper>1.9.9</version.jackson.mapper>
+        <!-- Arquillian & JBOSS -->
+        <project.ear.defaultLibBundleDir>lib</project.ear.defaultLibBundleDir>
+        <version.jboss.as.arquillian>7.2.0.Final</version.jboss.as.arquillian>
+        <version.arquillian.bom>1.1.10.Final</version.arquillian.bom>
+        <version.arquillian.slf4j.simple>1.6.4</version.arquillian.slf4j.simple>
+        <version.arquillian-weld-se-embedded>1.0.0.CR3</version.arquillian-weld-se-embedded>
+        <version.weld>1.1.13.Final</version.weld>
+        <version.maven.failsafe>2.17</version.maven.failsafe>
+        <version.maven.dependency>2.8</version.maven.dependency>
+        <version.jboss_temp>3.1.2</version.jboss_temp>
+        <version.modeling.bom>13.0.2</version.modeling.bom>
+        <version.model.deployment.tool>7.8.2</version.model.deployment.tool>
+        <!-- Models -->
+        <version.model.fls.config>1.1.2</version.model.fls.config>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.ericsson.oss.itpf.modeling</groupId>
+                <artifactId>Modeling-BOM</artifactId>
+                <version>${version.modeling.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.ericsson.oss.itpf.eap</groupId>
+                <artifactId>jboss-temp-tar</artifactId>
+                <version>${version.jboss_temp}</version>
+                <type>zip</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.ericsson.oss.itpf.sdk</groupId>
+                <artifactId>service-framework-rar</artifactId>
+                <version>${version.service.framework}</version>
+                <type>rar</type>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
